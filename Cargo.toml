@@ -10,3 +10,4 @@ mysql = "24.0.0"
 log = "0.4.17"
 simple_logger = "4.2.0"
 systemd-journal-logger = "1.0.0"
+scoreboard_db = { path = "../scoreboard_db" }
