@@ -1,6 +1,7 @@
 use mysql::prelude::*;
 use mysql::*;
 use std::env;
+mod debug_config;
 
 #[derive(Debug, PartialEq, Eq)]
 struct Score {
@@ -10,6 +11,8 @@ struct Score {
 }
 
 fn main() {
+    let args = std::env::args().collect::<Vec<String>>();
+    debug_config::init_debug(&args);
     let db_pass = env::var("DB_PASSWORD").expect("DB_PASS must be set");
     create_table(&db_pass).expect("error creating table");
 
