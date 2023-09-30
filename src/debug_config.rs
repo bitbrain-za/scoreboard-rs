@@ -75,3 +75,44 @@ pub fn init_debug(args: &[String]) {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_get_level() {
+        let args = vec![
+            String::from("program"),
+            String::from("-v"),
+            String::from("debug"),
+        ];
+        assert_eq!(get_level(&args), LevelFilter::Debug);
+    }
+
+    #[test]
+    fn test_get_output() {
+        let args = vec![
+            String::from("program"),
+            String::from("-o"),
+            String::from("stdout"),
+        ];
+        assert_eq!(get_output(&args), DebugOut::Stdout);
+    }
+
+    #[test]
+    fn test_get_output_default() {
+        let args = vec![String::from("program")];
+        assert_eq!(get_output(&args), DebugOut::Syslog);
+    }
+
+    #[test]
+    fn test_get_output_bad() {
+        let args = vec![
+            String::from("program"),
+            String::from("-o"),
+            String::from("bad"),
+        ];
+        assert_eq!(get_output(&args), DebugOut::Syslog);
+    }
+}
